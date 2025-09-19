@@ -1,36 +1,178 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔐 Authentication & CRUD System
 
-## Getting Started
+A CRUD application built with Next.js 15 (App Router), featuring JWT-based authentication, complete CRUD operations, form validation, and comprehensive session management.
 
-First, run the development server:
+## 📖 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project demonstrates a complete authentication implementation with full CRUD functionality. The system provides secure user authentication with JWT tokens, server-side session management, comprehensive data management, and a clean, responsive UI built with shadcn/ui components.
+
+## 🚀 Tech Stack
+
+### Frontend
+
+-   **Next.js 15** - React framework with App Router
+-   **TypeScript** - Type-safe development
+-   **Tailwind CSS** - Utility-first styling
+-   **shadcn/ui** - Modern, accessible UI components
+
+### Authentication & State Management
+
+-   **NextAuth.js** - Authentication library with JWT strategy
+-   **TanStack Query (React Query)** - Server state management
+-   **React Hook Form** - Form handling and validation
+-   **Zod** - Schema validation
+
+### HTTP & API
+
+-   **Axios** - HTTP client with interceptors
+-   **Custom API Integration** - Backend authentication endpoints
+
+## ✨ Features
+
+### 🔑 Authentication
+
+-   **Secure Login** - Username/password authentication with backend API
+-   **JWT Token Management** - Automatic token handling and refresh
+-   **Session Persistence** - Maintains user sessions across browser sessions
+-   **Protected Routes** - Server-side middleware protection
+
+### 📝 CRUD Operations
+
+-   **Items Management** - Complete Create, Read, Update, Delete functionality
+-   **Add Items** - Modal forms with validation for creating new items
+-   **Edit Items** - In-place editing with form validation
+-   **Delete Items** - Confirmation dialogs for safe deletion
+-   **Real-time Updates** - Optimistic updates with React Query
+
+### 🎨 User Experience
+
+-   **Form Validation** - Real-time validation with Zod schemas
+-   **Loading States** - Comprehensive loading feedback
+-   **Error Handling** - User-friendly error messages
+-   **Responsive Design** - Mobile-first responsive layout
+
+### 🔒 Security
+
+-   **Server-side Protection** - Next.js middleware for route protection
+-   **Type Safety** - Full TypeScript implementation
+-   **Token Interceptors** - Automatic token attachment and 401 handling
+-   **Secure Session Management** - HttpOnly cookies and CSRF protection
+
+## 🚦 Getting Started
+
+### Prerequisites
+
+-   Node.js 18+
+-   npm/yarn/pnpm
+-   Backend API running on `localhost:8080`
+
+### Installation
+
+1. **Clone the repository**
+
+    ```bash
+    git clone <repository-url>
+    cd takehome-cbi-nextjs-fe
+    ```
+
+2. **Install dependencies**
+
+    ```bash
+    npm install
+    ```
+
+3. **Environment Setup**
+   Create a `.env.local` file:
+
+    ```env
+    NEXTAUTH_SECRET=your-secret-key-here
+    NEXT_PUBLIC_API_URL=http://localhost:8080
+    ```
+
+4. **Run the development server**
+
+    ```bash
+    npm run dev
+    ```
+
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🔧 Configuration
+
+### Backend Integration
+
+The application expects a backend API with the following endpoints:
+
+#### Authentication
+
+**POST** `/login`
+
+```json
+{
+    "username": "user",
+    "password": "password"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Response:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```json
+{
+    "token": "jwt-token-here"
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Items CRUD
 
-## Learn More
+**GET** `/items` - Get all items
+**POST** `/items` - Create new item
 
-To learn more about Next.js, take a look at the following resources:
+```json
+{
+    "name": "Item Name",
+    "price": 100.0
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**PUT** `/items/:id` - Update item
+**DELETE** `/items/:id` - Delete item
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Item Response:**
 
-## Deploy on Vercel
+```json
+{
+    "id": 1,
+    "name": "Item Name",
+    "price": 100.0
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Authentication Flow
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. User submits login form
+2. Form validation with Zod schema
+3. API call to backend `/login` endpoint
+4. JWT token received and stored in NextAuth session
+5. Automatic token attachment for subsequent requests
+6. Server-side route protection via middleware
+
+## 🎯 Key Implementation Highlights
+
+-   **Custom Auth Types** - Extended NextAuth types for type safety
+-   **Axios Interceptors** - Automatic JWT token handling
+-   **Server-side Sessions** - Optimized session management
+-   **Form Validation** - Zod schemas with React Hook Form
+-   **Protected Routes** - Next.js middleware implementation
+-   **CRUD Operations** - Complete data management with React Query
+-   **Modal Forms** - shadcn/ui dialogs with form validation
+-   **Optimistic Updates** - Real-time UI updates with rollback
+-   **Error Boundaries** - Comprehensive error handling
+
+
+## 🔗 Connect
+
+-   **Portfolio**: [[Alif Rachmat Illahi](https://portofolio-web-phi-wine.vercel.app/)]
+-   **LinkedIn**: [[Alif Rachmat Illahi](https://www.linkedin.com/in/alifrachmat/)]
+
+---
