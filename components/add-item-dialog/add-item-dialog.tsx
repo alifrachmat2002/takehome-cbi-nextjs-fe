@@ -35,7 +35,7 @@ export function AddItemDialog() {
                             <DialogTitle>Add Item</DialogTitle>
                             <DialogDescription>
                                 Add a new item to the list. Click save when
-                                you're done.
+                                you&apos;re done.
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-2">
@@ -90,9 +90,17 @@ export function AddItemDialog() {
                         </div>
                         <DialogFooter>
                             <DialogClose asChild>
-                                <Button variant="outline" type="button" disabled={isLoading}>Cancel</Button>
+                                <Button
+                                    variant="outline"
+                                    type="button"
+                                    disabled={isLoading}
+                                >
+                                    Cancel
+                                </Button>
                             </DialogClose>
-                            <Button type="submit" disabled={isLoading}>Save changes</Button>
+                            <Button type="submit" disabled={isLoading}>
+                                Save changes
+                            </Button>
                         </DialogFooter>
                     </form>
                 </Form>

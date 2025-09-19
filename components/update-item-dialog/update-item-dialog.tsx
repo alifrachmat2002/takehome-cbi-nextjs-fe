@@ -44,7 +44,7 @@ export function UpdateItemDialog({ updatedItem, setUpdatedItem }:{ updatedItem: 
         }, [updatedItem]);
 
     return (
-        <Dialog open={open} onOpenChange={handleClose} >
+        <Dialog open={open} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-[425px]">
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -52,7 +52,7 @@ export function UpdateItemDialog({ updatedItem, setUpdatedItem }:{ updatedItem: 
                             <DialogTitle>Update Item</DialogTitle>
                             <DialogDescription>
                                 Update the item details. Click save when
-                                you're done.
+                                you&apos;re done.
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-2">
