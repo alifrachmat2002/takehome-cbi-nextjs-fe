@@ -1,4 +1,4 @@
-# 🔐 Authentication & CRUD System
+# 🔐 Takehome CBI - Next.js Frontend
 
 A CRUD application built with Next.js 15 (App Router), featuring JWT-based authentication, complete CRUD operations, form validation, and comprehensive session management.
 
