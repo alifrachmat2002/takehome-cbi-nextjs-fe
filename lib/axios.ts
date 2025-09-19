@@ -16,6 +16,8 @@ apiClient.interceptors.request.use(
     async (config) => {
         try {
             const session = (await getSession()) as SessionExtended;
+
+            console.log("Session in axios instance:", session);
             if (session?.accessToken) {
                 config.headers.Authorization = `Bearer ${session.accessToken}`;
             }

@@ -25,7 +25,8 @@ const authOptions: NextAuthOptions = {
                     // Call your BE login endpoint
                     const response = await authServices.login({
                         username: credentials.username,
-                        password: credentials.password })
+                        password: credentials.password,
+                    });
 
                     // If BE returns token, create user session
                     if (response.data?.token) {
@@ -64,8 +65,10 @@ const authOptions: NextAuthOptions = {
             token: JWTExtended;
         }) {
             // Pass token to client session
-            session.user = token.user;
-            session.accessToken = token.user?.accessToken;
+            session.accessToken = token.accessToken as string;
+            if (session.user) {
+                session.user.name = (token.username as string) || "";
+            }
             return session;
         },
     },
@@ -77,4 +80,4 @@ const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST, authOptions };
