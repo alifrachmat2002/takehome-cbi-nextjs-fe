@@ -2,36 +2,37 @@ import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import { JWTExtended, SessionExtended, UserExtended } from "@/types/Auth";
+import apiClient from "@/lib/axios";
+import authServices from "@/services/auth.service";
 
 const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: "credentials",
             credentials: {
-                username: { label: "Username", type: "text" },
-                password: { label: "Password", type: "password" },
+                username: { label: "username", type: "text" },
+                password: { label: "password", type: "password" },
             },
-            async authorize(credentials) {
+            async authorize(
+                credentials: Record<"username" | "password", string> | undefined
+            ): Promise<UserExtended | null> {
                 if (!credentials?.username || !credentials?.password) {
                     return null;
                 }
 
                 try {
                     // Call your BE login endpoint
-                    const response = await axios.post(
-                        "http://localhost:8080/login",
-                        {
-                            username: credentials.username,
-                            password: credentials.password,
-                        }
-                    );
+                    const response = await authServices.login({
+                        username: credentials.username,
+                        password: credentials.password })
 
                     // If BE returns token, create user session
                     if (response.data?.token) {
                         return {
                             id: credentials.username,
                             name: credentials.username,
-                            token: response.data.token,
+                            accessToken: response.data.token,
                         };
                     }
                     return null;
@@ -47,21 +48,24 @@ const authOptions: NextAuthOptions = {
         maxAge: 30 * 24 * 60 * 60, // 30 days
     },
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user }: { token: JWTExtended; user: UserExtended }) {
             // Store the token from BE in JWT
             if (user) {
-                token.accessToken = (user as any).token;
+                token.accessToken = user.accessToken;
                 token.username = user.name;
             }
             return token;
         },
-        async session({ session, token }) {
+        async session({
+            session,
+            token,
+        }: {
+            session: SessionExtended;
+            token: JWTExtended;
+        }) {
             // Pass token to client session
-            (session as any).accessToken = token.accessToken;
-            session.user = {
-                ...session.user,
-                name: token.username as string,
-            };
+            session.user = token.user;
+            session.accessToken = token.user?.accessToken;
             return session;
         },
     },
