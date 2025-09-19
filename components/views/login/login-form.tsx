@@ -39,7 +39,7 @@ export function LoginForm({
                                           fieldState: { error },
                                       }) => (
                                           <FormItem>
-                                              <FormLabel>Email</FormLabel>
+                                              <FormLabel>Username</FormLabel>
                                               <FormControl>
                                                   <Input
                                                       {...field}
@@ -47,7 +47,6 @@ export function LoginForm({
                                                           "border-destructive":
                                                               error,
                                                       })}
-                                                      placeholder="m@example.com"
                                                   />
                                               </FormControl>
                                               <FormMessage />
